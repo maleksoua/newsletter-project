@@ -56,6 +56,7 @@
 
 ------------------------------------------------------------------
 - Write in English not in Frensh OK
+- Install docker properly - OK
 - Lombok generate getters, setters and constructors - KO
 - Follow the defined pattern we agreed on in the first meeting KO
 - Never use @Data I expect a reason why not to use it ???
@@ -69,4 +70,5 @@
 	- Understand docker commands !docker-file/compose
 	- Create hello world controller, test it with curl
 	- Update diagram class
+	- Create a script .bat file to build and run our spring boot application
 ------------------------------------------------------------------
