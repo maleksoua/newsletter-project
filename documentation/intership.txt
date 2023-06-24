@@ -72,3 +72,25 @@
 	- Update diagram class
 	- Create a script .bat file to build and run our spring boot application
 ------------------------------------------------------------------
+
+---------------[24/06/23]---------------
+-Create hello world controller, test it with curl  
+-Create a script .bat file to build and run our spring boot application ( role mta3ou inou thot al commande ili trani baaha fi fichier w twali t3ayat kan lil fichier haka )
+-Update diagram class
+- Understand docker commands !docker-file/compose
+	-docker run ( si le contenaire n'est pas connus pull   wb3id titrana)
+	-docker ps -a ||docker container ls -a ( lister tous les conteneurs, y compris ceux qui sont arrêtés ou en cours d'exécution)
+	-docker image rm fedora ( rm tfasa5)
+	-docker container run -d redis( redis ya5dim en background)
+	-docker inspect redis(ta3tik des information 3al contenaire exemple(wa9ath tisana3,version,architecture,os:linux)
+	-docker  start dec5675e64c7 /docker  stop dec5675e64c7 (nhot al id mta3 contenair ili nhib nwa9fou wala n5admou wala name mt3ou )
+	-docker logs id (kan foma erreur fil server mich insilized )
+
+
+
+
+
+
+
+
+
