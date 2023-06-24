@@ -1,0 +1,6 @@
+@echo off
+echo Building the application...
+mvn clean package
+
+echo Running the application...
+java -jar target/NewsletterApplication.jar
