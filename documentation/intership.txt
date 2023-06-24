@@ -54,7 +54,7 @@
 - Install docker properly - OK
 - class diagram
 
-------------------------------------------------------------------
+-------------------------------REVIEW------------------------------
 - Write in English not in Frensh OK
 - Install docker properly - OK
 - Lombok generate getters, setters and constructors - KO
@@ -74,8 +74,8 @@
 ------------------------------------------------------------------
 
 ---------------[24/06/23]---------------
--Create hello world controller, test it with curl  
--Create a script .bat file to build and run our spring boot application ( role mta3ou inou thot al commande ili trani baaha fi fichier w twali t3ayat kan lil fichier haka )
+-Create hello world controller, test it with curl
+-Create a script .bat file to build and run our spring boot application ( role mta3ou inou thot al commande ili trani baaha fi fichier w twali t3ayat kan lil fichier haka ) 
 -Update diagram class
 - Understand docker commands !docker-file/compose
 	-docker run ( si le contenaire n'est pas connus pull   wb3id titrana)
@@ -87,10 +87,29 @@
 	-docker logs id (kan foma erreur fil server mich insilized )
 
 
+-------------------------------REVIEW------------------------------
+- Create a script .bat file to build and run our spring boot application - OK
+- Understand docker commands !docker-file/compose - OK
+- Understand mvn commands? - OK
+
+- Follow the defined pattern we agreed on in the first meeting - KO
+- Write in English not in Frensh or Arabic KO
+
+- Lombok generate getters, setters and constructors - KO
+- Never use @Data I expect a reason why not to use it ??? - KO
+- What is JPA? KO
+- Understand GIT commands? - KO
+- What is maven daemon (mvnd)? - KO
+- What are the possible packaging values and what to use? - KO
+- Create hello world controller, test it with curl - KO
+- Update diagram class - KO
+
+- Find a way to run the script without pointing on the containing directory
+- Implement the subject CRUD in spring boot 
+- Start using postman, collection, enviorment and tests
+
+Review duration: 23:00 - 00:45
+------------------------------------------------------------------
 
 
-
-
-
-
-
+---------------[25/06/23]---------------
