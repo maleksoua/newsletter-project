@@ -1,6 +1,6 @@
-package repository;
+package com.proxym.newsletter.application.repository;
 
-import entity.Subject;
+import com.proxym.newsletter.application.entity.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
