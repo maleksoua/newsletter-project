@@ -118,6 +118,18 @@ Review duration: 23:00 - 00:45
 
 ---------------[26/06/23]---------------
 - Create hello world controller, test it with curl (curl http://localhost:8080/welcome)
+- Find a way to run the script without pointing on the containing directory
+- Implement the subject CRUD in spring boot 
+- Start using postman, collection, enviorment and tests
+
+---------------[27/06/23]---------------
+- Implement the Subscriber CRUD in spring boot (ManytoMany)
+- What are the possible packaging values and what to use
+	-jar(used to bundle and compress Java files)
+	-war(used for deploying Java web applications. It contains all the files needed to deploy a web application (html,css,js)
+	-ear (Used to group several modules of an enterprise application,EAR can contain multiple JAR, WAR or other types of modules)
+	-rar (It is an archive format used to compress and consolidate multiple files and folders into a single file)
+
 
 
 
