@@ -5,7 +5,6 @@ import com.proxym.newsletter.application.entity.Subject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 /**
@@ -38,7 +37,7 @@ public class SubjectController {
     /**
      * Create a new subject
      */
-    @PostMapping("/subjects")
+    @PostMapping("/Add")
     public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject) {
         Subject savedSubject = subjectRepository.save(subject);
         return ResponseEntity.ok(savedSubject);

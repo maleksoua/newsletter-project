@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Set;
-
 @Entity
 @Getter
 @Setter
@@ -18,9 +16,6 @@ public class Subject {
     private String name;
     @Enumerated(EnumType.STRING)
     private Category category;
-    @ManyToMany(mappedBy = "subject", fetch = FetchType.LAZY)
-    private Set<Subscriber> subscribers;
-
     public Subject(String name, Category category) {
         this.name = name;
         this.category = category;
