@@ -22,6 +22,7 @@ public class Subject {
 
     private Category category;
     @JsonIgnore
+
     @ManyToMany(mappedBy = "subjects")
     Set<Subscriber> subscribers;
     public Subject(String name, Category category) {

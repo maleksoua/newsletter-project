@@ -133,6 +133,8 @@ Review duration: 23:00 - 00:45
 - Implement the Subscriber CRUD in spring boot (ManytoMany)
 - Implement the Subscriber CRUD in react js
 - send email to one subscriber
+---------------[11/07/23]---------------
+- send an email to all subscribers to a subject
 
 
 
