@@ -128,7 +128,12 @@ Review duration: 23:00 - 00:45
 	-jar(used to bundle and compress Java files)
 	-war(used for deploying Java web applications. It contains all the files needed to deploy a web application (html,css,js)
 	-ear (Used to group several modules of an enterprise application,EAR can contain multiple JAR, WAR or other types of modules)
-	-rar (It is an archive format used to compress and consolidate multiple files and folders into a single file)
+
+---------------[10/07/23]---------------
+- Implement the Subscriber CRUD in spring boot (ManytoMany)
+- Implement the Subscriber CRUD in react js
+- send email to one subscriber
+
 
 
 

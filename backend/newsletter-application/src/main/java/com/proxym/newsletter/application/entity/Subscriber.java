@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 
 @Entity
 @Getter
@@ -19,5 +21,14 @@ public class Subscriber {
     @Enumerated(EnumType.STRING)
     private Language language;
 
+    @ManyToMany(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "subjects_like",
+            joinColumns = @JoinColumn(name = "subscriber_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    Set<Subject> subjects;
 
+
+    public void addSubject(Subject existingSubject) {
+    }
 }

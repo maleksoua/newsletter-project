@@ -20,6 +20,7 @@ public class BootstrapDatabase implements CommandLineRunner {
         List<Subject> subjectList = new ArrayList<>();
         subjectList.add(new Subject("Big Data", Category.TECHNOLOGIES));
         subjectList.add(new Subject("Artificial intelligence", Category.TECHNOLOGIES));
+        subjectList.add(new Subject("Cancer", Category.HEALTH));
         subjectRepository.saveAll(subjectList);
     }
 }
