@@ -1,17 +1,12 @@
 package com.proxym.newsletter.application.controller;
 
 import com.proxym.newsletter.application.entity.EmailMessage;
-import com.proxym.newsletter.application.entity.Subject;
-import com.proxym.newsletter.application.entity.Subscriber;
-import com.proxym.newsletter.application.repository.SubjectRepository;
 import com.proxym.newsletter.application.sevice.EmailSenderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Set;
 
 @RestController
 public class EmailController {
