@@ -7,13 +7,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/Language")
 public class LangugeController {
    @GetMapping
-    public ResponseEntity<Language[]> getLanguages() {
-       Language[] Languages = Language.values();
-        return ResponseEntity.ok(Languages);
+    public ResponseEntity<List<Language>> getLanguages() {
+        return ResponseEntity.ok(List.of(Language.values()));
     }
 }

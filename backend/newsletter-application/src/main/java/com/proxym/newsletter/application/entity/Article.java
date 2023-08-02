@@ -6,17 +6,20 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
-public class Information {
+public class Article {
 
     @Id
     @GeneratedValue
     private Long id;
     @ManyToOne
     private Subject subject;
-    private String paragraph;
+    private String information;
+    private Language language;
 
 
 }

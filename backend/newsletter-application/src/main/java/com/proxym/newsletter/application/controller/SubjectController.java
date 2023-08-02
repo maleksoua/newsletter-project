@@ -1,12 +1,10 @@
 package com.proxym.newsletter.application.controller;
 
-import com.proxym.newsletter.application.entity.Category;
-import com.proxym.newsletter.application.entity.EmailMessage;
-import com.proxym.newsletter.application.entity.Subscriber;
+import com.proxym.newsletter.application.entity.*;
 import com.proxym.newsletter.application.repository.SubjectRepository;
-import com.proxym.newsletter.application.entity.Subject;
 import com.proxym.newsletter.application.sevice.EmailSenderService;
 
+import com.proxym.newsletter.application.sevice.SubjectService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +18,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class SubjectController {
     private final EmailSenderService emailSenderService;
+    private final SubjectService subjectService;
     private final SubjectRepository subjectRepository;
 
     @GetMapping("/subjects")
@@ -29,20 +28,9 @@ public class SubjectController {
     }
 
     @GetMapping("/subjectsByCategory")
-    public ResponseEntity<Map<Category, List<Subject>>> findAllSubjectsByCategory() {
-        List<Subject> subjects = subjectRepository.findAll();
-        Map<Category, List<Subject>> subjectMap = new HashMap<>();
-
-        // Group subjects by category
-        for (Subject subject : subjects) {
-            Category category = subject.getCategory();
-            if (!subjectMap.containsKey(category)) {
-                subjectMap.put(category, new ArrayList<>());
-            }
-            subjectMap.get(category).add(subject);
-        }
-
-        return ResponseEntity.ok(subjectMap);
+    public ResponseEntity<Map<Category, List<Subject>>> findAllSubjectsByCategory() throws MessagingException {
+        Map<Category, List<Subject>> subjectsByCategory = subjectService.SubjectByCategory();
+        return ResponseEntity.ok(subjectService.SubjectByCategory());
     }
 
     @GetMapping("/subjects/{id}")
@@ -76,27 +64,18 @@ public class SubjectController {
         return ResponseEntity.ok(savedSubject);
     }
 
-    @PostMapping("/subjects/{subjectId}/send_email")
-    public ResponseEntity<String> sendEmailToSubscribers(@PathVariable Long subjectId, @RequestBody EmailMessage emailMessage) throws MessagingException {
-        Subject subject = subjectRepository.findById(subjectId)
-                .orElseThrow(() -> new RuntimeException("Subject not found"));
+    @PostMapping("/subjects/send_email")
 
-        Set<Subscriber> subscribers = subject.getSubscribers();
+    public ResponseEntity<String> sendEmailToSubscribers(@RequestBody EmailRequest emailRequest) throws MessagingException {
 
-        if (subscribers.isEmpty()) {
-            return ResponseEntity.ok("No subscribers found");
-        }
-
-        for (Subscriber subscriber : subscribers) {
-            emailSenderService.sendEmail(subscriber.getEmail(), emailMessage.getSubject(), emailMessage.getMessage() + subject.getName() + subject.getCategory());
-        }
-
-        return ResponseEntity.ok("E-mails sent to subscribers");
+        return ResponseEntity.ok(emailSenderService.sendEmailToSubscriber(emailRequest));
     }
 
-    /*@GetMapping("/subjects/category/{category}")
-    public ResponseEntity<List<Subject>> findSubjectsByCategory(@PathVariable Category category) {
-        List<Subject> subjects = subjectRepository.findByCategory(category);
-        return ResponseEntity.ok(subjects);
-    }*/
+
+
 }
+
+
+
+
+
