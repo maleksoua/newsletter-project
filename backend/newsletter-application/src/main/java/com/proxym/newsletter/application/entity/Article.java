@@ -11,7 +11,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Article {
-
     @Id
     @GeneratedValue
     private Long id;
@@ -19,6 +18,4 @@ public class Article {
     private Subject subject;
     private String information;
     private Language language;
-
-
 }

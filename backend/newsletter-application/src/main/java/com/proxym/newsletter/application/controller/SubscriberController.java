@@ -1,10 +1,9 @@
 package com.proxym.newsletter.application.controller;
 
 import com.proxym.newsletter.application.entity.Subscriber;
-import com.proxym.newsletter.application.entity.Validation;
+import com.proxym.newsletter.application.entity.SubscriptionRequest;
 import com.proxym.newsletter.application.repository.SubscriberRepository;
-import com.proxym.newsletter.application.sevice.ConfirmationService;
-import com.proxym.newsletter.application.sevice.SubscriberService;
+import com.proxym.newsletter.application.service.SubscriberService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -65,9 +64,9 @@ public class SubscriberController {
         return ResponseEntity.ok().build();}
 
     @PostMapping("/confirmation/{email}")
-    public ResponseEntity<String> addConfirmedSubscriber(@PathVariable String email,@RequestBody Validation confirmationRequest) throws MessagingException {
+    public ResponseEntity<String> addConfirmedSubscriber(@PathVariable String email,@RequestBody SubscriptionRequest confirmationRequest) throws MessagingException {
         confirmationRequest.setEmail(email);
-       String confirmation =confirmationService.confirmationSubscriber(confirmationRequest);
+       String confirmation =confirmationService.confirmSubscriber(confirmationRequest);
         return ResponseEntity.ok(confirmation);
     }
 

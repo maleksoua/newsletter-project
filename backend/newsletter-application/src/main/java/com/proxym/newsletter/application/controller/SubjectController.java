@@ -3,9 +3,9 @@ package com.proxym.newsletter.application.controller;
 import com.proxym.newsletter.application.entity.*;
 import com.proxym.newsletter.application.enums.Category;
 import com.proxym.newsletter.application.repository.SubjectRepository;
-import com.proxym.newsletter.application.sevice.EmailSenderService;
+import com.proxym.newsletter.application.service.EmailSenderService;
 
-import com.proxym.newsletter.application.sevice.SubjectService;
+import com.proxym.newsletter.application.service.SubjectService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +31,7 @@ public class SubjectController {
     @GetMapping("/subjectsByCategory")
     public ResponseEntity<Map<Category, List<Subject>>> findAllSubjectsByCategory() throws MessagingException {
 
-        return ResponseEntity.ok(subjectService.SubjectByCategory());
+        return ResponseEntity.ok(subjectService.subjectByCategory());
     }
 
     @GetMapping("/subjects/{id}")

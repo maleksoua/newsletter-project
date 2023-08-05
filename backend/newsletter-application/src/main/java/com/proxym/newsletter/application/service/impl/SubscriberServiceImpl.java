@@ -1,13 +1,13 @@
-package com.proxym.newsletter.application.sevice.impl;
+package com.proxym.newsletter.application.service.impl;
 
 import com.proxym.newsletter.application.entity.Subject;
 import com.proxym.newsletter.application.entity.Subscriber;
-import com.proxym.newsletter.application.entity.Validation;
+import com.proxym.newsletter.application.entity.SubscriptionRequest;
 import com.proxym.newsletter.application.repository.SubjectRepository;
 import com.proxym.newsletter.application.repository.SubscriberRepository;
-import com.proxym.newsletter.application.repository.ValidationRepository;
-import com.proxym.newsletter.application.sevice.EmailSenderService;
-import com.proxym.newsletter.application.sevice.SubscriberService;
+import com.proxym.newsletter.application.repository.SubscriptionRequestRepository;
+import com.proxym.newsletter.application.service.EmailSenderService;
+import com.proxym.newsletter.application.service.SubscriberService;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class SubscriberServiceImpl implements SubscriberService {
     private final SubscriberRepository subscriberRepository;
     private final SubjectRepository subjectRepository;
     private final EmailSenderService emailSenderService;
-    private final ValidationRepository validationRepository;
+    private final SubscriptionRequestRepository subscriptionRequestRepository;
 
     @Override
     public Subscriber addSubscriber(Subscriber subscriber) throws MessagingException {
@@ -77,18 +77,18 @@ public class SubscriberServiceImpl implements SubscriberService {
         }
 
         String randomCode = generateRandomCode();
-        Validation validationEntity = new Validation();
-        validationEntity.setCode(randomCode);
-        validationEntity.setEmail(subscriber.getEmail());
+        SubscriptionRequest subscriptionRequestEntity = new SubscriptionRequest();
+        subscriptionRequestEntity.setCode(randomCode);
+        subscriptionRequestEntity.setEmail(subscriber.getEmail());
 
         String bodyString = subscriber.getEmail() + "|" +
                 subscriber.getLastName() + "|" +
                 subscriber.getFirstName() + "|" +
                 subscriber.getLanguage() + "|" +
                 subjectNames;
-        validationEntity.setBody(bodyString);
+        subscriptionRequestEntity.setBody(bodyString);
 
-        validationRepository.save(validationEntity);
+        subscriptionRequestRepository.save(subscriptionRequestEntity);
         String emailTemplate;
 
         if (subscriber.getLanguage().name().equals("ENGLISH")) {
@@ -110,7 +110,7 @@ public class SubscriberServiceImpl implements SubscriberService {
                 .replace("$language", language)
                 .replace("$code", randomCode);
 
-        emailSenderService.sendEmail(email, "validation", emailBody);
+
     }
 
     private String getEmailTemplateFromFile(String filePath) {

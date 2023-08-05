@@ -20,12 +20,11 @@ public class Subject {
     @Column(unique = true)
     private String name;
     @Enumerated(EnumType.STRING)
-
     private Category category;
     @JsonIgnore
-
     @ManyToMany(mappedBy = "subjects")
-    Set<Subscriber> subscribers;
+    private Set<Subscriber> subscribers;
+
     public Subject(String name, Category category) {
         this.name = name;
         this.category = category;
