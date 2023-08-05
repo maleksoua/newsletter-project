@@ -1,11 +1,11 @@
 package com.proxym.newsletter.application.entity;
 
+import com.proxym.newsletter.application.enums.Language;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -31,26 +31,6 @@ public class Subscriber {
             inverseJoinColumns = @JoinColumn(name = "subject_id"))
     Set<Subject> subjects;
 
-
-    /*public void addSubject(Subject existingSubject) {
-    }*/
-
-
-   /* public Subscriber( String firstName, String lastName, String email, Language language, Set<Subject> subjects) {
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.language = language;
-        this.subjects = subjects;
-    }
-    public Set<String> getSubjectNames() {
-        Set<String> subjectNames = new HashSet<>();
-        for (Subject subject : subjects) {
-            subjectNames.add(subject.getName());
-        }
-        return subjectNames;
-    }*/
 
 
 }

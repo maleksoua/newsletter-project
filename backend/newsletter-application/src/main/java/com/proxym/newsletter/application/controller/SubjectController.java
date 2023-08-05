@@ -1,6 +1,7 @@
 package com.proxym.newsletter.application.controller;
 
 import com.proxym.newsletter.application.entity.*;
+import com.proxym.newsletter.application.enums.Category;
 import com.proxym.newsletter.application.repository.SubjectRepository;
 import com.proxym.newsletter.application.sevice.EmailSenderService;
 
@@ -29,7 +30,7 @@ public class SubjectController {
 
     @GetMapping("/subjectsByCategory")
     public ResponseEntity<Map<Category, List<Subject>>> findAllSubjectsByCategory() throws MessagingException {
-        Map<Category, List<Subject>> subjectsByCategory = subjectService.SubjectByCategory();
+
         return ResponseEntity.ok(subjectService.SubjectByCategory());
     }
 

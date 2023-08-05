@@ -1,8 +1,9 @@
-package com.proxym.newsletter.application.entity;
+package com.proxym.newsletter.application.enums;
 
 
 public enum Language {
     FRENCH,
+    ARABIC,
     ENGLISH;
 
     public static boolean equalsIgnoreCase(String language) {
@@ -11,7 +12,7 @@ public enum Language {
         }
 
         try {
-            Language languageEnum = Language.valueOf(language.toUpperCase());
+
             return true;
         } catch (IllegalArgumentException e) {
             return false;

@@ -1,7 +1,6 @@
 package com.proxym.newsletter.application.controller;
 
-import com.proxym.newsletter.application.entity.Category;
-import com.proxym.newsletter.application.entity.Language;
+import com.proxym.newsletter.application.enums.Language;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

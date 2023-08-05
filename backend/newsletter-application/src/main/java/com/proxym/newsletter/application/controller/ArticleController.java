@@ -1,7 +1,6 @@
 package com.proxym.newsletter.application.controller;
 
 import com.proxym.newsletter.application.entity.Article;
-
 import com.proxym.newsletter.application.repository.ArticleRepository;
 import com.proxym.newsletter.application.sevice.ArticleService;
 import jakarta.mail.MessagingException;

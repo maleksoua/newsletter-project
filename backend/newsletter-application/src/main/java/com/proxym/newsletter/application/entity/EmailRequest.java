@@ -21,6 +21,6 @@ public class EmailRequest {
     private String language;
     private String message;
     private String subjectEmail;
-  //  private String email;
+
 }
 

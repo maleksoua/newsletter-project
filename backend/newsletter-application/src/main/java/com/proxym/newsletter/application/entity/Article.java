@@ -1,12 +1,11 @@
 package com.proxym.newsletter.application.entity;
 
+import com.proxym.newsletter.application.enums.Language;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Set;
 
 @Entity
 @Getter

@@ -1,6 +1,6 @@
 package com.proxym.newsletter.application.sevice.impl;
 
-import com.proxym.newsletter.application.entity.Category;
+import com.proxym.newsletter.application.enums.Category;
 import com.proxym.newsletter.application.entity.Subject;
 import com.proxym.newsletter.application.repository.SubjectRepository;
 import com.proxym.newsletter.application.sevice.SubjectService;

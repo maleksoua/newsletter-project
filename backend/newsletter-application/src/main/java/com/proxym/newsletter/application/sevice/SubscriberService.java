@@ -5,6 +5,6 @@ import jakarta.mail.MessagingException;
 
 public interface SubscriberService {
     void validateSubscriber(Subscriber subscriber)throws MessagingException;
-    Subscriber addSubscriber(Subscriber subscriber)throws MessagingException;;
+    Subscriber addSubscriber(Subscriber subscriber)throws MessagingException;
 }
 

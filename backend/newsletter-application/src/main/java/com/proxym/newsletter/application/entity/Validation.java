@@ -13,8 +13,6 @@ public class Validation {
     private Long id;
     private String code;
     private String email;
-
     private String body;
-
 
 }

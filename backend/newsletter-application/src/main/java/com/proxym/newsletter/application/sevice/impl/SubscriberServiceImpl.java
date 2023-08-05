@@ -1,5 +1,5 @@
 package com.proxym.newsletter.application.sevice.impl;
-import com.proxym.newsletter.application.entity.Language;
+
 import com.proxym.newsletter.application.entity.Subject;
 import com.proxym.newsletter.application.entity.Subscriber;
 import com.proxym.newsletter.application.entity.Validation;
@@ -12,6 +12,10 @@ import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -21,23 +25,22 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     private final SubscriberRepository subscriberRepository;
     private final SubjectRepository subjectRepository;
-
     private final EmailSenderService emailSenderService;
     private final ValidationRepository validationRepository;
 
-@Override
+    @Override
     public Subscriber addSubscriber(Subscriber subscriber) throws MessagingException {
 
-          if (subscriber.getSubjects() != null) {
-              Set<Subject> attachedSubjects = new HashSet<>();
-              for (Subject subject : subscriber.getSubjects()) {
-                  Subject existingSubject = subjectRepository.findByName(subject.getName());
-                  if (existingSubject != null) {
-                      attachedSubjects.add(existingSubject);
-                  }
-              }
-              subscriber.setSubjects(attachedSubjects);
-          }
+        if (subscriber.getSubjects() != null) {
+            Set<Subject> attachedSubjects = new HashSet<>();
+            for (Subject subject : subscriber.getSubjects()) {
+                Subject existingSubject = subjectRepository.findByName(subject.getName());
+                if (existingSubject != null) {
+                    attachedSubjects.add(existingSubject);
+                }
+            }
+            subscriber.setSubjects(attachedSubjects);
+        }
         return subscriberRepository.save(subscriber);
     }
 
@@ -86,33 +89,42 @@ public class SubscriberServiceImpl implements SubscriberService {
         validationEntity.setBody(bodyString);
 
         validationRepository.save(validationEntity);
-        String emailBody="";
+        String emailTemplate;
 
-         if(subscriber.getLanguage().name().equals("ENGLISH")){
-              emailBody = "<html><header></header><body><h3>Your First name is:</h3>" +
-                subscriber.getFirstName() + "<h3>Your Last name is:</h3>" +
-                subscriber.getLastName() + "<h3>Your email is:</h3>" +
-                subscriber.getEmail() + "<h3>Your Language:</h3>" +
-                subscriber.getLanguage() + "<h3>Your subjects are:</h3>" +
-                subjectNames + "<br>  code " + randomCode + " </body></html>";
-             emailSenderService.sendEmail(subscriber.getEmail(), "validation", emailBody);
+        if (subscriber.getLanguage().name().equals("ENGLISH")) {
+            emailTemplate = getEmailTemplateFromFile("C:/intership/newsletter-intership-proxym/backend/newsletter-application/src/main/resources/templates/validation_email_en.txt");
+        }else if(subscriber.getLanguage().name().equals("FRENCH")){
+            emailTemplate = getEmailTemplateFromFile("C:/intership/newsletter-intership-proxym/backend/newsletter-application/src/main/resources/templates/validation_email_fr.txt");
+        }else{
+            emailTemplate = getEmailTemplateFromFile("C:/intership/newsletter-intership-proxym/backend/newsletter-application/src/main/resources/templates/validation_email_ar.txt");
+        }
+        String firstName = subscriber.getFirstName();
+        String lastName = subscriber.getLastName();
+        String email = subscriber.getEmail();
+        String language = subscriber.getLanguage().toString();
 
-          }
+        String emailBody = emailTemplate
+                .replace("$firstName", firstName)
+                .replace("$lastName", lastName)
+                .replace("$email", email)
+                .replace("$language", language)
+                .replace("$code", randomCode);
 
-        if(subscriber.getLanguage().name().equals("FRENCH")){
-              emailBody = "<html><header></header><body><h3> Votre prénom est:</h3>" +
-                     subscriber.getFirstName() + "<h3>Votre nom est:</h3>" +
-                     subscriber.getLastName() + "<h3>Votre email est:</h3>" +
-                     subscriber.getEmail() + "<h3>Votre langue est:</h3>" +
-                     subscriber.getLanguage() + "<h3>Votre sujects sont:</h3>" +
-                     subjectNames + "<br>  code " + randomCode + " </body></html>";
-            emailSenderService.sendEmail(subscriber.getEmail(), "validation", emailBody);
-         }
-
-
-        // Send the email
-
+        emailSenderService.sendEmail(email, "validation", emailBody);
     }
+
+    private String getEmailTemplateFromFile(String filePath) {
+        try {
+            byte[] bytes = Files.readAllBytes(Paths.get(filePath));
+            return new String(bytes, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+
+
 
     private String generateRandomCode() {
         Random random = new Random();
@@ -121,10 +133,3 @@ public class SubscriberServiceImpl implements SubscriberService {
     }
 
 }
-
-
-
-
-
-
-

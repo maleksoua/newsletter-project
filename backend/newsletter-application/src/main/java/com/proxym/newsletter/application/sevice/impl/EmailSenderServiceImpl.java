@@ -49,8 +49,6 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     Subject subject = subjectRepository.findById(subjectId)
             .orElseThrow(() -> new RuntimeException("Subject not found"));
 
-    String subjectName = subject.getName(); // Get the subject name from the Subject object
-
     Set<Subscriber> subscribers = subject.getSubscribers();
 
         if (subscribers.isEmpty()) {
@@ -71,8 +69,8 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     }
 
         if (!matchedSubscribers.isEmpty()) {
-        String messagee = "E-mails sent to subscribers with the chosen language and subject: " + String.join(", ", matchedSubscribers);
-        return messagee;
+
+        return "E-mails sent to subscribers with the chosen language and subject: " + String.join(", ", matchedSubscribers);
     } else {
         return "No subscribers found matching the chosen language and subject.";
     }

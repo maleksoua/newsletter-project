@@ -1,6 +1,7 @@
 package com.proxym.newsletter.application.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.proxym.newsletter.application.enums.Category;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

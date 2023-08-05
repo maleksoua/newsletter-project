@@ -1,13 +1,12 @@
 package com.proxym.newsletter.application.controller;
+
 import com.proxym.newsletter.application.entity.Subscriber;
 import com.proxym.newsletter.application.entity.Validation;
-import com.proxym.newsletter.application.repository.SubjectRepository;
 import com.proxym.newsletter.application.repository.SubscriberRepository;
 import com.proxym.newsletter.application.sevice.ConfirmationService;
 import com.proxym.newsletter.application.sevice.SubscriberService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +19,6 @@ import java.util.List;
 public class SubscriberController {
 
     private final SubscriberRepository subscriberRepository;
-    private final SubjectRepository subjectRepository;
     private final SubscriberService subscriberService;
     private final ConfirmationService confirmationService;
 
@@ -62,7 +60,7 @@ public class SubscriberController {
         return ResponseEntity.ok(savedSubscriber);
     }
     @PostMapping("/validation")
-    public ResponseEntity<Void> validateSubscriber(@RequestBody Subscriber subscriber) throws Exception {
+    public ResponseEntity<Void> validateSubscriber(@RequestBody Subscriber subscriber) throws MessagingException {
        subscriberService.validateSubscriber(subscriber);
         return ResponseEntity.ok().build();}
 
