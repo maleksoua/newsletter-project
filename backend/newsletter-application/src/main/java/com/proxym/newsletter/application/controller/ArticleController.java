@@ -7,25 +7,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/article-resources")
 @RequiredArgsConstructor
 public class ArticleController {
 
     private final ArticleService articleService;
+
     @DeleteMapping("/article/{id}")
     public ResponseEntity<Void> deleteArticle(@PathVariable Long id) {
-        articleRepository.deleteById(id);
+        articleService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
     @GetMapping("/articles")
     public ResponseEntity<List<Article>> findAllArticles() {
-        List<Article> articles = articleRepository.findAll();
-        return ResponseEntity.ok(articles);
+        return ResponseEntity.ok(articleService.findAll());
     }
+
     @PostMapping("/articles")
-    public ResponseEntity<Article> saveArticle(@RequestBody Article article) {
-        return ResponseEntity.ok(articleService.addArticle(article));
+    public ResponseEntity<Void> saveArticle(@RequestBody Article article) {
+        articleService.add(article);
+        return ResponseEntity.noContent().build();
     }
 }

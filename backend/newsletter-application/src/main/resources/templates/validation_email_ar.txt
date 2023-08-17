@@ -3,10 +3,11 @@
    <body>
       <h3> مرحباً:</h3>
 
-      <h3>$firstName اسمك هو</h3>
-      <h3>$lastNameلقبك هو</h3>
-      <h3>$email بريدك الإلكتروني هو</h3>
-      <h3>$languageلغتك هي</h3>
+      <h3> $firstName اسمك هو</h3>
+      <h3> $lastNameلقبك هو</h3>
+      <h3> $email بريدك الإلكتروني هو</h3>
+      <h3> $languageلغتك هي</h3>
+         <br>  code $code
       <br>
    </body>
 </html>

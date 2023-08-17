@@ -6,6 +6,8 @@ import com.proxym.newsletter.application.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
@@ -13,7 +15,19 @@ public class ArticleServiceImpl implements ArticleService {
     private final ArticleRepository articleRepository;
 
     @Override
-    public Article addArticle(Article article){
-        return articleRepository.save(article);
+    public void add(Article article) {
+        articleRepository.save(article);
     }
+
+    @Override
+    public void delete(Long id) {
+        articleRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Article> findAll() {
+        return articleRepository.findAll();
+    }
+
+
 }
