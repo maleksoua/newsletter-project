@@ -42,11 +42,12 @@ public class SubjectController {
 
     @GetMapping("/subjects/{id}")
     public Subject getById(@PathVariable Long id) {
-        return  subjectService.getById(id);
+        return subjectService.getById(id);
     }
+
     @PutMapping("/subjects/{id}")
     public ResponseEntity<Void> updateSubject(@PathVariable Long id, @RequestBody Subject updatedSubject) {
-       subjectService.update(id, updatedSubject);
+        subjectService.update(id, updatedSubject);
         return ResponseEntity.noContent().build();
     }
 

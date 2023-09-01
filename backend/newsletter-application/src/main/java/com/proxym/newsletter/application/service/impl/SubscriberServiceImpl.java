@@ -7,12 +7,14 @@ import com.proxym.newsletter.application.enums.SubscriptionRequestStatus;
 import com.proxym.newsletter.application.repository.SubjectRepository;
 import com.proxym.newsletter.application.repository.SubscriberRepository;
 import com.proxym.newsletter.application.repository.SubscriptionRequestRepository;
+import com.proxym.newsletter.application.service.EmailSenderService;
 import com.proxym.newsletter.application.service.SubscriberService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +27,7 @@ public class SubscriberServiceImpl implements SubscriberService {
    private  final SubscriptionRequestRepository subscriptionRequestRepository;
     private final SubjectRepository subjectRepository;
     private final SubscriberRepository subscriberRepository;
+    private final EmailSenderService emailSenderService;
 
 
     @Override
@@ -47,21 +50,32 @@ public class SubscriberServiceImpl implements SubscriberService {
     public List<Subscriber> findAll() {
         return subscriberRepository.findAll();
     }
+@Override
+@Transactional
+public void deleteSubscription(Long id) {
+    Subscriber subscriber = subscriberRepository.findById(id).orElse(null);
+    if (subscriber != null) {
+        for (Subject subject : subscriber.getSubjects()) {
+            subject.getSubscribers().remove(subscriber);
 
-    @Override
-    public void delete(Long id) {
+        }
         subscriberRepository.deleteById(id);
+        subscriptionRequestRepository.deleteById(id);
+        emailSenderService.sendDeletionNotification(subscriber.getEmail());
     }
+}
+
 
     @Override
     @Transactional
-    public void validateSubscription(String email, SubscriptionRequest subscriptionRequest) {
+    public ResponseEntity<String> validateSubscription(String email, SubscriptionRequest subscriptionRequest) {
         SubscriptionRequest subscriptionRequestConfirme = subscriptionRequestRepository.findByCodeAndEmail(subscriptionRequest.getCode(), email);
 
         if (subscriptionRequestConfirme != null) {
             subscriptionRequestConfirme.setStatus(SubscriptionRequestStatus.CONFIRMED);
 
             Subscriber subscriber = new Subscriber();
+
             subscriber.setEmail(subscriptionRequestConfirme.getEmail());
             subscriber.setFirstName(subscriptionRequestConfirme.getFirstName());
             subscriber.setLastName(subscriptionRequestConfirme.getLastName());
@@ -77,8 +91,18 @@ public class SubscriberServiceImpl implements SubscriberService {
                 subscriber.setSubjects(attachedSubjects);
             }
 
+
             subscriberRepository.save(subscriber);
+
+            String subject = "Subscription Confirmed";
+            String message = "Your subscription has been confirmed. Thank you!";
+            emailSenderService.sendEmail(email, subject, message);
+
             subscriptionRequestRepository.save(subscriptionRequestConfirme);
+
+            return ResponseEntity.ok("Subscription confirmed successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid code or email.");
         }
     }
  public SubscriptionRequest requestSubscription(SubscriptionRequest subscriptionRequest) {

@@ -28,7 +28,19 @@ public class ArticleController {
 
     @PostMapping("/articles")
     public ResponseEntity<Void> saveArticle(@RequestBody Article article) {
+
         articleService.add(article);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/articles/{id}")
+    public ResponseEntity<Void> updateArticle(@PathVariable Long id, @RequestBody Article updatedArticle) {
+        articleService.update(id, updatedArticle);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/articles/{id}")
+    public Article getById(@PathVariable Long id) {
+        return articleService.getById(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.proxym.newsletter.application.controller;
 
+import com.proxym.newsletter.application.enums.ArticleSendStatus;
 import com.proxym.newsletter.application.enums.Category;
 import com.proxym.newsletter.application.enums.Language;
 import org.springframework.http.ResponseEntity;
@@ -18,5 +19,9 @@ public class UtilsController {
     @GetMapping("/category")
     public ResponseEntity<List<Category>> getCategories() {
         return ResponseEntity.ok(List.of(Category.values()));
+    }
+    @GetMapping("/ArticleSendStatus")
+    public ResponseEntity<List<ArticleSendStatus>> getStatus() {
+        return ResponseEntity.ok(List.of(ArticleSendStatus.values()));
     }
 }

@@ -27,8 +27,6 @@ public class ConfirmationRequestCron {
     @Value("${application.one.time.password.length}")
     private int optLength;
 
-    @Value("${application.one.time.password.fixe}")
-    private int fixedDelayValue;
 
     public ConfirmationRequestCron(SubscriptionRequestRepository subscriptionRequestRepository, EmailSenderService emailSenderService) throws IOException {
         this.subscriptionRequestRepository = subscriptionRequestRepository;
@@ -47,7 +45,7 @@ public class ConfirmationRequestCron {
         int maxRange = (int) Math.pow(10, optLength);
         List<SubscriptionRequest> subscriptionRequestList = subscriptionRequestRepository.findByStatus(SubscriptionRequestStatus.INITIATED);
         for (SubscriptionRequest subscriptionRequest: subscriptionRequestList) {
-            final String subject = "not yet implemented";
+            final String subject = "Subscription in newsletter";
 
             String body;
             switch (subscriptionRequest.getLanguage()){
@@ -65,7 +63,6 @@ public class ConfirmationRequestCron {
                     .replace("$language", subscriptionRequest.getLanguage().toString());
 
             emailSenderService.sendEmail(subscriptionRequest.getEmail(), subject, formattedBody);
-            emailSenderService.sendEmail("maleksoua123@yopmail.com", subject, formattedBody);
             subscriptionRequest.setStatus(SubscriptionRequestStatus.PENDING);
         }
         subscriptionRequestRepository.saveAll(subscriptionRequestList);

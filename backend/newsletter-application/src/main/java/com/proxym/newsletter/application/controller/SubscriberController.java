@@ -32,7 +32,7 @@ public class SubscriberController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteSubscriber(@PathVariable Long id) {
-        subscriberService.delete(id);
+        subscriberService.deleteSubscription(id);
         return ResponseEntity.noContent().build();
     }
 
@@ -42,12 +42,12 @@ public class SubscriberController {
         return ResponseEntity.noContent().build();
     }
 
+
     @PostMapping("/confirmation/{email}")
-    public ResponseEntity<SubscriptionRequest> validateSubscriber(@PathVariable String email,@RequestBody SubscriptionRequest subscriptionRequest) {
-        subscriberService.validateSubscription(email,subscriptionRequest);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> validateSubscriber(@PathVariable String email, @RequestBody SubscriptionRequest subscriptionRequest) {
+        return subscriberService.validateSubscription(email, subscriptionRequest);
+
+
     }
 }
-
-
 

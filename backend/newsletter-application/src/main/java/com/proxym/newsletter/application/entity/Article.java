@@ -1,5 +1,6 @@
 package com.proxym.newsletter.application.entity;
 
+import com.proxym.newsletter.application.enums.ArticleSendStatus;
 import com.proxym.newsletter.application.enums.Language;
 import jakarta.persistence.Entity;
 
@@ -16,6 +17,11 @@ public class Article {
     private Long id;
     @ManyToOne
     private Subject subject;
+    @Column(columnDefinition = "TEXT")
     private String information;
     private Language language;
+    @Enumerated(EnumType.STRING)
+    private ArticleSendStatus status;
+    private String title;
+
 }

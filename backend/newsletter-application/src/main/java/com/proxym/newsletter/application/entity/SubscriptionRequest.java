@@ -29,7 +29,7 @@ public class SubscriptionRequest {
     @Enumerated(EnumType.STRING)
     private SubscriptionRequestStatus status;
 
-    @ManyToMany(fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name = "subjects_like",
             joinColumns = @JoinColumn(name = "subscriber_id"),

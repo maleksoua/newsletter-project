@@ -2,11 +2,12 @@ package com.proxym.newsletter.application.service;
 
 import com.proxym.newsletter.application.entity.Subscriber;
 import com.proxym.newsletter.application.entity.SubscriptionRequest;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface SubscriberService {
-    void validateSubscription(String email,SubscriptionRequest subscriptionRequest);
+    ResponseEntity<String> validateSubscription(String email, SubscriptionRequest subscriptionRequest);
 
     SubscriptionRequest requestSubscription(SubscriptionRequest subscriber);
 
@@ -14,7 +15,8 @@ public interface SubscriberService {
 
     List<Subscriber> findAll();
 
-    void delete(Long id);
+
+     void deleteSubscription(Long id);
 
 }
 

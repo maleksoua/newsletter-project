@@ -26,8 +26,8 @@ public class Subscriber {
 
     @Enumerated(EnumType.STRING)
     private Language language;
-   @NotEmpty
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @NotEmpty
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "subjects_likee",
             joinColumns = @JoinColumn(name = "subscriber_id"),

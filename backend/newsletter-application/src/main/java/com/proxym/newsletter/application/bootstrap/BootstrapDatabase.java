@@ -1,7 +1,7 @@
 package com.proxym.newsletter.application.bootstrap;
 
-import com.proxym.newsletter.application.enums.Category;
 import com.proxym.newsletter.application.entity.Subject;
+import com.proxym.newsletter.application.enums.Category;
 import com.proxym.newsletter.application.repository.SubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
