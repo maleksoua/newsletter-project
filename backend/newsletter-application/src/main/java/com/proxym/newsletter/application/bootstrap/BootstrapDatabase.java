@@ -1,7 +1,7 @@
 package com.proxym.newsletter.application.bootstrap;
 
-import com.proxym.newsletter.application.entity.Category;
 import com.proxym.newsletter.application.entity.Subject;
+import com.proxym.newsletter.application.enums.Category;
 import com.proxym.newsletter.application.repository.SubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -18,8 +18,13 @@ public class BootstrapDatabase implements CommandLineRunner {
     @Override
     public void run(String... args) {
         List<Subject> subjectList = new ArrayList<>();
-        subjectList.add(new Subject("Big Data", Category.TECHNOLOGIES));
-        subjectList.add(new Subject("Artificial intelligence", Category.TECHNOLOGIES));
+        subjectList.add(new Subject("Big Data", Category.TECHNOLOGY));
+        subjectList.add(new Subject("Artificial intelligence", Category.TECHNOLOGY));
+        subjectList.add(new Subject("Cancer", Category.HEALTH));
+
         subjectRepository.saveAll(subjectList);
     }
 }
+
+
+

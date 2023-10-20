@@ -1,0 +1,11 @@
+<html>
+   <header></header>
+   <body>
+      <h3> Bienvenue</h3>
+      <h3> Votre prénom est: $firstName</h3>
+      <h3>Votre nom est: $lastName</h3>
+      <h3>Votre email est: $email</h3>
+      <h3>Votre langue est: $language</h3>
+      <br>  code $code
+   </body>
+</html>

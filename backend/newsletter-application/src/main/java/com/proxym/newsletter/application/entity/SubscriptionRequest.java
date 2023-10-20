@@ -1,37 +1,40 @@
 package com.proxym.newsletter.application.entity;
 
 import com.proxym.newsletter.application.enums.Language;
+import com.proxym.newsletter.application.enums.SubscriptionRequestStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
-public class Subscriber {
+public class SubscriptionRequest {
     @Id
     @GeneratedValue
     private Long id;
+    private Integer code;
+    @Column(unique = true)
+    private String email;
     @NotBlank
     private String firstName;
     @NotBlank
     private String lastName;
-    @Column(unique = true)
-    private String email;
-
     @Enumerated(EnumType.STRING)
     private Language language;
-    @NotEmpty
-    @ManyToMany(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private SubscriptionRequestStatus status;
+
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
-            name = "subjects_likee",
+            name = "subjects_like",
             joinColumns = @JoinColumn(name = "subscriber_id"),
             inverseJoinColumns = @JoinColumn(name = "subject_id"))
-    private Set<Subject> subjects = new HashSet<>();
-}
+    @NotEmpty
+    private Set<Subject> subjects;
 
+}

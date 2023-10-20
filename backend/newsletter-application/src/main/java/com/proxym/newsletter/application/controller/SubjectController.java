@@ -1,54 +1,60 @@
 package com.proxym.newsletter.application.controller;
 
-import com.proxym.newsletter.application.repository.SubjectRepository;
 import com.proxym.newsletter.application.entity.Subject;
+import com.proxym.newsletter.application.enums.Category;
+import com.proxym.newsletter.application.service.SubjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
-/**
- * Controller class for managing subjects in the newsletter application
- */
+import java.util.List;
+import java.util.Map;
+
+
 @RestController
 @RequestMapping("subject-resources")
 @RequiredArgsConstructor
 public class SubjectController {
-    private final SubjectRepository subjectRepository;
 
-    /**
-     * Retrieve all subjects
-     */
+    private final SubjectService subjectService;
+
     @GetMapping("/subjects")
-    public ResponseEntity<List<Subject>> findAll() {
-        List<Subject> subjects = subjectRepository.findAll();
-        return ResponseEntity.ok(subjects);
+    public ResponseEntity<List<Subject>> findAllSubjects() {
+        return ResponseEntity.ok(subjectService.findAll());
     }
 
-    /**
-     * Find a subject by ID
-     */
-    @GetMapping("/subjects/{id}")
-    public ResponseEntity<Subject> findById(@PathVariable Long id) throws Exception {
-        Subject subject = subjectRepository.findById(id).orElseThrow(() -> new Exception("Subject does not exist"));
-        return ResponseEntity.ok(subject);
+    @GetMapping("/subjectsByCategory")
+    public ResponseEntity<Map<Category, List<Subject>>> findAllSubjectsByCategory() {
+        return ResponseEntity.ok(subjectService.subjectByCategory());
     }
 
-    /**
-     * Create a new subject
-     */
-    @PostMapping("/Add")
-    public ResponseEntity<Subject> saveSubject(@RequestBody Subject subject) {
-        Subject savedSubject = subjectRepository.save(subject);
-        return ResponseEntity.ok(savedSubject);
-    }
-
-    /**
-     * Delete a subject by ID
-     */
-    @DeleteMapping("/subjects/{id}")
-    public ResponseEntity<Void> deleteSubject(@PathVariable Long id) {
-        subjectRepository.deleteById(id);
+    @PostMapping("/subjects")
+    public ResponseEntity<Void> saveSubject(@RequestBody Subject subject) {
+        subjectService.add(subject);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/subjects/{id}")
+    public ResponseEntity<Void> deleteSubject(@PathVariable Long id) {
+        subjectService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/subjects/{id}")
+    public Subject getById(@PathVariable Long id) {
+        return subjectService.getById(id);
+    }
+
+    @PutMapping("/subjects/{id}")
+    public ResponseEntity<Void> updateSubject(@PathVariable Long id, @RequestBody Subject updatedSubject) {
+        subjectService.update(id, updatedSubject);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
+
+
+
+
+
